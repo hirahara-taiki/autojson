@@ -58,19 +58,76 @@ Here's an example of it.
     # load JSON to your class
     config = Config().parse_json(json.loads(txt))
     # To change parameter
-    config.threshold = 0.7
+    config.threshold = Float(0.7)
     # or
-    config["threshold"] = 0.3
+    config["threshold"] = Float(0.3)
 
     # if you don't have json template, create the template
     print(json.dumps(Config().get_default_json()))
     # Object is subclass of dict
     # so you can save it as json
 
-=====
-Usage
-=====
+=======
+Classes
+=======
 
 This module provides five classes: Object, Array, Int, Float, and String.
 
 
+Int
+===
+
+Int is a subclass of int, with additional methods for JSON, but it behaves the same as int.
+
+
+Float
+=====
+
+Float is a subclass of float, with additional methods for JSON, but it behaves the same as float.
+
+
+String
+======
+
+String is a subclass of str, with additional methods for JSON, but it behaves the same as str.
+
+
+Array
+=====
+
+Array is a subclass of list, with additional methods for JSON, but it behaves the same as list.
+However, since `__init__` is overridden, the constructor behaves differently from list.
+
+
+Object
+======
+
+Object is a subclass of dict, with additional methods for JSON, but it behaves the same as dict.
+This class is assumed to be inherited. As shown in the sample above, you can use this class by specifying instances of these five classes in the class variables of the class that inherits from it.
+The combination of these instances will be the definition of JSON.
+
+=======
+Methods
+=======
+
+All classes are defined as subclasses of the AutoJson class.
+Any class that inherits from it will always have two instance methods defined.
+
+get_default_json
+================
+
+It can be used to create a template for a JSON file when the JSON file is not trivial.
+The return value is equivalent to json.loads, but int is replaced with Int, float with Float, str with String, list with Array, and dict with Object.
+
+
+parse_json
+==========
+
+It takes the result of parsing with json.load and returns the defined class with the attributes properly defined.
+
+`__autojson_init__`
+===================
+
+Initialization functions that can be added by the user.
+It does not accept any arguments, but allows the user to add code that will be executed after being initialized by parse_json.
+It is used to modify the information read from the file.

@@ -85,6 +85,7 @@ def test_autojson():
     r.get_default_json()
     r = config.rectangles[0:1]
     r.get_default_json()
+    r[0]
 
     config = Config()
     obj = config.get_default_json()
