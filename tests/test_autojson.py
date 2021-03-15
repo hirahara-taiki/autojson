@@ -81,6 +81,11 @@ def test_autojson():
     assert config.rectangles[1].right == 300
     assert config.rectangles[1].bottom == 200
 
+    r = config.rectangles[0]
+    r.get_default_json()
+    r = config.rectangles[0:1]
+    r.get_default_json()
+
     config = Config()
     obj = config.get_default_json()
 

@@ -1,4 +1,4 @@
-from typing import TypeVar, Generic, Union, Any
+from typing import TypeVar, Generic, Union, Any, overload
 from abc import ABCMeta, abstractmethod
 
 class AutoJson(metaclass=ABCMeta):
@@ -52,8 +52,22 @@ class Array(list, AutoJson, Generic[T]):
         self.size = size
         list.__init__(self)
 
-    def __getitem__(self, item) -> T:
-        return list.__getitem__(self, item)
+    @overload
+    def __getitem__(self, item: int) -> T:
+        ...
+
+    @overload
+    def __getitem__(self, item: slice) -> "Array[T]":
+        ...
+
+    def __getitem__(self, item):
+        obj = list.__getitem__(self, item)
+        if isinstance(item, int):
+            return obj
+        else:
+            obj_ret = Array(self.indicator, self.size)
+            list.__init__(obj_ret, obj)
+            return obj_ret
 
     def get_default_json(self) -> "Array[T]":
         length = self.size if self.size >= 0 else 1
