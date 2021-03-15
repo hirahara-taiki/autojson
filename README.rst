@@ -125,9 +125,14 @@ parse_json
 
 It takes the result of parsing with json.load and returns the defined class with the attributes properly defined.
 
+===============
+Special Methods
+===============
+
 `__autojson_init__`
 ===================
 
+This is only valid for the Object class.
 Initialization functions that can be added by the user.
 It does not accept any arguments, but allows the user to add code that will be executed after being initialized by parse_json.
 It is used to modify the information read from the file.
