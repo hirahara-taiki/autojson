@@ -97,6 +97,7 @@ Array
 
 Array is a subclass of list, with additional methods for JSON, but it behaves the same as list.
 However, since `__init__` is overridden, the constructor behaves differently from list.
+It is always generated as an empty list.
 
 
 Object
