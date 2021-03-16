@@ -1,6 +1,3 @@
-import sys
-sys.path.append("../main.py")
-
 from autojson import __version__
 from autojson import Int, Float, String, Array, Object, String
 import json

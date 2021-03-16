@@ -1,4 +1,4 @@
-from typing import TypeVar, Generic, Union, Any, overload
+from typing import TypeVar, Generic, Union, Any, overload, Iterator
 from abc import ABCMeta, abstractmethod
 
 class AutoJson(metaclass=ABCMeta):
@@ -87,6 +87,8 @@ class Array(list, AutoJson, Generic[T]):
             obj.append(self.indicator.parse_json(elem))
         return obj
 
+    def __iter__(self) -> Iterator[T]:
+        return list.__iter__(self)
 
 class Object(dict, AutoJson):
     def get_default_json(self):

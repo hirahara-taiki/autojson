@@ -46,6 +46,20 @@ Here's an example of it.
         top = Int()
         width = Int()
         height = Int()
+        right: int
+        bottom: int
+
+        def __autojson_init__(self):
+            self.right = self.left + self.width
+            self.bottom = self.top + self.height
+
+        @property
+        def ltwh(self):
+            return self.left, self.top, self.width, self.height
+
+        @property
+        def ltrb(self):
+            return self.left, self.top, self.right, self.bottom
 
 
     class Config(Object):
@@ -61,6 +75,10 @@ Here's an example of it.
     config.threshold = Float(0.7)
     # or
     config["threshold"] = Float(0.3)
+
+    for rectangle in config.rectangles:
+        print("ltrb", rectangle.ltrb)
+        print("ltwh", rectangle.ltwh)
 
     # if you don't have json template, create the template
     print(json.dumps(Config().get_default_json()))
