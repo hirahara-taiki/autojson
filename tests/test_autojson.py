@@ -3,7 +3,7 @@ from autojson import Int, Float, String, Array, Object, String, Boolean
 import json
 
 def test_version():
-    assert __version__ == '0.1.1'
+    assert __version__ == '0.1.2'
 
 def test_autojson():
     class RedisConfig(Object):

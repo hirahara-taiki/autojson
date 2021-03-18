@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "autojson"
-version = "0.1.1"
+version = "0.1.2"
 description = "A module in which Python classes define JSON"
 authors = ["Hirahara. Taiki <hirahara.taiki@gmail.com>"]
 license = "MIT"
