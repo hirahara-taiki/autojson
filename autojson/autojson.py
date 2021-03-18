@@ -32,6 +32,69 @@ class Float(float, AutoJson):
         return Float(json)
 
 
+class Boolean(int, AutoJson):
+    def __init__(self, value: bool = False):
+        self.value = value
+
+    def get_default_json(self) ->"Boolean":
+        return Boolean()
+
+    def parse_json(self, json: bool):
+        if not isinstance(json, bool):
+            raise TypeError()
+        return Boolean(json)
+
+    def __bool__(self) -> bool:
+        return self.value
+
+    def __eq__(self, flag: Union["Boolean", bool]) -> bool:
+        if isinstance(flag, Boolean):
+            return self.value == flag.value
+        elif isinstance(flag, bool):
+            return self.value == flag
+        else:
+            raise TypeError()
+
+    def __lt__(self, flag: Union["Boolean", bool]) -> bool:
+        if isinstance(flag, Boolean):
+            return self.value < flag.value
+        elif isinstance(flag, bool):
+            return self.value < flag
+
+    def __le__(self, flag: Union["Boolean", bool]) -> bool:
+        if isinstance(flag, Boolean):
+            return self.value <= flag.value
+        elif isinstance(flag, bool):
+            return self.value <= flag
+
+    def __gt__(self, flag: Union["Boolean", bool]) -> bool:
+        if isinstance(flag, Boolean):
+            return self.value > flag.value
+        elif isinstance(flag, bool):
+            return self.value > flag
+
+    def __ge__(self, flag: Union["Boolean", bool]) -> bool:
+        if isinstance(flag, Boolean):
+            return self.value >= flag.value
+        elif isinstance(flag, bool):
+            return self.value >= flag
+
+    def __str__(self) -> str:
+        return "True" if self.value else "False"
+
+    def __repr__(self) -> str:
+        return "True" if self.value else "False"
+
+    def __int__(self) -> int:
+        return 1 if self.value else 0
+
+    def __float__(self) -> float:
+        return 1.0 if self.value else 0.0
+
+    def __bytes__(self) -> bytes:
+        return b"\x00" if self.value else b""
+
+
 class String(str, AutoJson):
     def get_default_json(self) -> "String":
         return String()

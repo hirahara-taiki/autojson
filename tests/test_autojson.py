@@ -1,9 +1,9 @@
 from autojson import __version__
-from autojson import Int, Float, String, Array, Object, String
+from autojson import Int, Float, String, Array, Object, String, Boolean
 import json
 
 def test_version():
-    assert __version__ == '0.1.0'
+    assert __version__ == '0.1.1'
 
 def test_autojson():
     class RedisConfig(Object):
@@ -14,6 +14,7 @@ def test_autojson():
     class DetectionConfig(Object):
         area = Array(Array(Int(), 2))
         threshold = Float()
+        flag = Boolean()
 
     class Rectangle(Object):
         left = Int()
@@ -39,7 +40,8 @@ def test_autojson():
                 [1920, 1080],
                 [0, 1080]
             ],
-            "threshold": 0.35
+            "threshold": 0.35,
+            "flag": true
         },
         "rectangles": [
             {
@@ -67,6 +69,7 @@ def test_autojson():
 
     assert config.detection.area == [[0, 0], [1920, 1080], [0, 1080]]
     assert config.detection.threshold == 0.35
+    assert config.detection.flag.value == True
 
     assert config.rectangles[0].left == 0
     assert config.rectangles[0].top == 0
@@ -106,3 +109,18 @@ def test_autojson():
     obj["redis"]["port"] = Int(200)
     assert obj.redis.port == 200
     assert obj["redis"]["port"] == 200
+
+def test_boolean():
+    b1 = Boolean(False)
+    b2 = Boolean(False)
+    b3 = Boolean(True)
+    assert b1 == False
+    assert False == b1
+    assert b3 == True
+    assert True == b3
+    assert b1 == b2
+    assert b1 != b3
+    assert not b1
+    assert b3
+    assert (not b1) == True
+    assert (not b3) == False

@@ -7,6 +7,7 @@ There is no need to define your own JSON parser.
 You can convert JSON to Python classes with a short code and support the type hints available in vscode's Pylance extension.
 Here's an example of it.
 
+
 .. code-block:: python
 
     import json
@@ -85,11 +86,12 @@ Here's an example of it.
     # Object is subclass of dict
     # so you can save it as json
 
+
 =======
 Classes
 =======
 
-This module provides five classes: Object, Array, Int, Float, and String.
+This module provides six classes: Object, Array, Int, Float, Boolean, and String.
 
 
 Int
@@ -102,6 +104,15 @@ Float
 =====
 
 Float is a subclass of float, with additional methods for JSON, but it behaves the same as float.
+
+
+Boolean
+=======
+
+Boolean is NOT a subclass of bool, with additional methods for JSON, but it behaves the same as bool.
+However, it will not work correctly for the is operator.
+Also, if you assign a value to a variable annotated as a bool type, an error message will be displayed,
+so please use bool() or Boolean.value when assigning.
 
 
 String
@@ -125,12 +136,14 @@ Object is a subclass of dict, with additional methods for JSON, but it behaves t
 This class is assumed to be inherited. As shown in the sample above, you can use this class by specifying instances of these five classes in the class variables of the class that inherits from it.
 The combination of these instances will be the definition of JSON.
 
+
 =======
 Methods
 =======
 
 All classes are defined as subclasses of the AutoJson class.
 Any class that inherits from it will always have two instance methods defined.
+
 
 get_default_json
 ================
@@ -144,9 +157,11 @@ parse_json
 
 It takes the result of parsing with json.load and returns the defined class with the attributes properly defined.
 
+
 ===============
 Special Methods
 ===============
+
 
 `__autojson_init__`
 ===================
