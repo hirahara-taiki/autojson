@@ -11,13 +11,14 @@ Here's an example of it.
 .. code-block:: python
 
     import json
-    from autojson import Object, Array, Int, Float, String
+    from autojson import Object, Array, Int, Float, Boolean, String
 
     # JSON file
     txt = """
     {
         "name": "config",
         "threshold": 0.5,
+        "flag": true,
         "rectangles": [
             {
                 "left": 0,
@@ -66,6 +67,7 @@ Here's an example of it.
     class Config(Object):
         name = String()
         threshold = Float()
+        flag = Boolean()
         rectangles = Array(Rectangle())
         area = Array(Array(Int(), size=2))
 
